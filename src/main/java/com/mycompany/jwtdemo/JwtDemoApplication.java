@@ -1,4 +1,4 @@
-package com.auth0.hotsauces;
+package com.mycompany.jwtdemo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
