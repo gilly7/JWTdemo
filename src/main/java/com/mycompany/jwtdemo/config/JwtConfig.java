@@ -1,5 +1,6 @@
 package com.mycompany.jwtdemo.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -9,10 +10,15 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 @EnableWebSecurity
 public class JwtConfig extends WebSecurityConfigurerAdapter{
+	
+	
+	@Autowired
+	private CustomUserDetailsService customUserDetailsService;
+	
 //here we say how to manage the authentication process
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(productAppAuthService);
+		auth.userDetailsService(customUserDetailsService);
 	}
 	//with this method we will control which endpoints are permitted and not permitted
 
