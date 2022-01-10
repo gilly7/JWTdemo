@@ -6,6 +6,11 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import com.mycompany.jwtdemo.service.CustomUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
@@ -20,13 +25,27 @@ public class JwtConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(customUserDetailsService);
 	}
-	//with this method we will control which endpoints are permitted and not permitted
+	//with this method we will control which end-points are permitted and not permitted
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		// TODO Auto-generated method stub
-		super.configure(http);
+		http
+		.csrf()
+		.disable()
+		.cors()
+		.disable()
+		.authorizeRequests()
+		.antMatchers("/generateToken").permitAll() //only allow this end-point without authentication
+		.anyRequest().authenticated() //for any other request, authentication should be performed
+		.and()
+		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); //every request should be independent of other and server does not have to manage session
+		
 	}
+	
+	public PasswordEncoder passwordEncoder() {
+		return NoOpPasswordEncoder.getInstance();
+	}
+	
 	
 
 }
