@@ -1,6 +1,7 @@
 package com.mycompany.jwtdemo.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -41,6 +42,7 @@ public class JwtConfig extends WebSecurityConfigurerAdapter{
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); //every request should be independent of other and server does not have to manage session
 		
 	}
+	@Bean
 	
 	public PasswordEncoder passwordEncoder() {
 		return NoOpPasswordEncoder.getInstance();
