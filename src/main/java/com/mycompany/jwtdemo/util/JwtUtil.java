@@ -6,6 +6,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -13,12 +14,16 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-@Service
+
+//method to generate JWT Token
+//method to validate jwt token
+//method to check expiry of jwt token
+@Component
 public class JwtUtil {
 
 	@Value("${jwt.secret}")
 
-    private String SECRET_KEY = "czQiP59wxomuthkJhiod";
+    private String SECRET_KEY;
 	
 	
     public String extractUsername(String token) {
