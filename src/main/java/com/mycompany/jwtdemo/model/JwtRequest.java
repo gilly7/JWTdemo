@@ -4,6 +4,11 @@ public class JwtRequest {
 	
 	private String userName;
 	private String password;
+	
+
+	public JwtRequest() {
+		
+	}
 	public JwtRequest(String userName, String password) {
 		super();
 		this.userName = userName;
