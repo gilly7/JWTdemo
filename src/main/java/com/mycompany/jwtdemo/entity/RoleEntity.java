@@ -1,10 +1,18 @@
 package com.mycompany.jwtdemo.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "role_table")
@@ -16,7 +24,13 @@ public class RoleEntity {
 	private Long id;
 	
 	private String roleName;
+	
+	@JsonBackReference   //helps avoid circular dependency in bidirectional mapping
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "roles")
+	private Set<UserEntity> users = new HashSet<>();
 
+	
+	
 	public Long getId() {
 		return id;
 	}

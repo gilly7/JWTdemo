@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mycompany.jwtdemo.model.JwtRequest;
 import com.mycompany.jwtdemo.model.JwtResponse;
-import com.mycompany.jwtdemo.service.CustomUserDetailsService;
+import com.mycompany.jwtdemo.service.CustomUserDetailService;
 import com.mycompany.jwtdemo.util.JwtUtil;
 
 @RestController
@@ -23,7 +23,7 @@ public class JwtController {
 	private AuthenticationManager authenticationManager;
 
 	@Autowired
-	private CustomUserDetailsService customUserDetailsService;
+	private CustomUserDetailService customUserDetailService;
 
 	@Autowired
 	private JwtUtil jwtUtil;
@@ -36,7 +36,7 @@ public class JwtController {
 		// authenticate user
 		authenticationManager.authenticate(upat);
 
-		UserDetails userDetails = customUserDetailsService.loadUserByUsername(jwtRequest.getUserName());
+		UserDetails userDetails = customUserDetailService.loadUserByUsername(jwtRequest.getUserName());
 
 		String jwtToken = jwtUtil.generateToken(userDetails);
 		

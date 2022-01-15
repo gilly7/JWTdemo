@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 
-public class CustomUserDetailsService implements UserDetailsService {
+public class CustomUserDetailService implements UserDetailsService {
 
 	//this method does validation of user existence
 	

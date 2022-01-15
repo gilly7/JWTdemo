@@ -14,7 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.mycompany.jwtdemo.filter.JwtAuthenticationFilter;
-import com.mycompany.jwtdemo.service.CustomUserDetailsService;
+import com.mycompany.jwtdemo.service.CustomUserDetailService;
 
 @Configuration
 @EnableWebSecurity
@@ -22,7 +22,7 @@ public class JwtConfig extends WebSecurityConfigurerAdapter{
 	
 	
 	@Autowired
-	private CustomUserDetailsService customUserDetailsService;
+	private CustomUserDetailService customUserDetailsService;
 	
 	@Autowired
 	private JwtAuthenticationFilter jwtFilter;
@@ -43,25 +43,24 @@ public class JwtConfig extends WebSecurityConfigurerAdapter{
 		.disable()
 		.authorizeRequests()
 		.antMatchers("/api/generateToken").permitAll() //only allow this end-point without authentication
+		.and()
+		.authorizeRequests().antMatchers("h2-console/**").permitAll()
 		.anyRequest().authenticated() //for any other request, authentication should be performed
 		.and()
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); //every request should be independent of other and server does not have to manage session
 	
 		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 	}
-	@Bean
 	
-	public PasswordEncoder passwordEncoder() {
-		return NoOpPasswordEncoder.getInstance();
-	}
-	
-	@Bean
-	public AuthenticationManager authenticationManagerBean() throws Exception {
-		return super.authenticationManagerBean();
-		
-		
-	}
-	
+	@Bean 
+		public PasswordEncoder passwordEncoder(){
+        return NoOpPasswordEncoder.getInstance();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
 	
 
 }
