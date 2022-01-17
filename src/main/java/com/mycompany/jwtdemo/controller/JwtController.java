@@ -1,11 +1,14 @@
 package com.mycompany.jwtdemo.controller;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +42,7 @@ public class JwtController {
 		return re;
 	}
 
-	@PostMapping("/generateToken")
+	@PostMapping("/login")
 	public ResponseEntity<JwtResponse> generateToken(@RequestBody JwtRequest jwtRequest) {
 
 		UsernamePasswordAuthenticationToken upat = new UsernamePasswordAuthenticationToken(jwtRequest.getUserName(),
@@ -55,6 +58,14 @@ public class JwtController {
 		//return ResponseEntity.ok(jwtResponse);
 		return new ResponseEntity<JwtResponse>(jwtResponse, HttpStatus.OK);
 		
+	}
+	
+	@GetMapping("/currentUser")
+	
+	public UserModel getCurrentUser(Principal principal) {
+		UserDetails userDetails = this.customUserDetailService.loadUserByUsername(principal.getName());
+		
+		return (UserModel) userDetails;
 	}
 
 }
