@@ -44,7 +44,7 @@ public class JwtConfig extends WebSecurityConfigurerAdapter{
 		.authorizeRequests()
 		.antMatchers("/api/generateToken").permitAll() //only allow this end-point without authentication
 		.and()
-		.authorizeRequests().antMatchers("h2-console/**").permitAll()
+		.authorizeRequests().antMatchers("api/roles").permitAll()
 		.anyRequest().authenticated() //for any other request, authentication should be performed
 		.and()
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); //every request should be independent of other and server does not have to manage session

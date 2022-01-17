@@ -85,6 +85,14 @@ public class UserEntity{
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+	public Set<RoleEntity> getRoles() {
+		return roles;
+	}
+	public void setRoles(Set<RoleEntity> roles) {
+		this.roles = roles;
+	}
+	
+	
 	
 
 }
