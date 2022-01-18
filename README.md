@@ -3,7 +3,7 @@ A spring-boot demo project which shows the implementation of JWT.
 
 JWT(Json web token) is a standard for securing API's in a Microservices architecture, using this standard we can secure API's built in any technology like Nodejs, Python, .NET etc but in this course we will building API's using Java and SpringBoot and than we will be securing them using JWT and Spring security, we will also use all the industry best practices and standards along the way.
 
-# We will start with learning concepts like:
+# In this repo I covered concepts like:
 
 - What is Authentication
 
